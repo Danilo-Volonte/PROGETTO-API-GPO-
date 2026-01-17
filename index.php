@@ -12,14 +12,13 @@
         <div id="quiz-container"></div>
 
         <script>
-            fetch("https://opentdb.com/api.php?amount=10&category=9&difficulty=medium&type=multiple")
-            .then(response => response.json()) // Converte la risposta in JSON
-            .then(data => {
-                console.log(data); // Mostra il JSON completo
-                const container = document.getElementById("quiz-container");
-                data.results.forEach(question => {
-                    container.innerHTML += `<p><strong>${question.question}</strong></p>`;
-                });
+            // Usa le classi
+            let quiz = [];
+            fetch("https://opentdb.com/api.php?amount=10&categoria=9&difficolta=medium&type=multiple")
+            .then(response => response.json())
+            .then(informazioniAPI => {
+            quiz = new Quiz(informazioniAPI.results);
+            quiz.render('quiz-container');
             })
             .catch(error => console.error("Errore nella richiesta:", error));
         </script>
